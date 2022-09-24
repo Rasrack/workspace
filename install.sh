@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-set -eu pipefail
+set -euo pipefail
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+THIRDPARTY="${SCRIPT_DIR}/thirdparty"
 
-ln -s "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
-ln -s "$SCRIPT_DIR/.emacs" "$HOME/.emacs"
+ln -s -f "${THIRDPARTY}/oh-my-tmux/.tmux.conf" "${HOME}/.tmux.conf"
+ln -s -f "${SCRIPT_DIR}/tmux.config.local" "${HOME}/.tmux.conf.local"
+ln -s -f "${SCRIPT_DIR}/emacs_config" "${HOME}/.emacs"
