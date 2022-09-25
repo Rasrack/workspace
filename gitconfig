@@ -1,0 +1,4 @@
+[alias]
+	st = status
+[core]
+    excludesfile = ~/.gitignore
