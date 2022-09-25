@@ -12,6 +12,23 @@ THIRDPARTY=${ROOT_DIR}/thirdparty
 
 EDITOR=emacs
 
+append_to_variable() {
+    set +o pipefail
+    set -x
+
+    local variable env_variable to_append delimiter
+    variable="$1"
+    env_variable="$""${variable}"
+    echo "$env_variable"
+    to_append="$2"
+    delimiter="${3:-:}"
+
+    echo "${env_variable}" | tr "${delimiter}" "\n" | grep "${to_append}" > /dev/null || export "${variable}"="${env_variable}${delimiter}${to_append}"
+
+    set +x
+    set -o pipefail
+}
+
 source ${ROOT_DIR}/bash_config.bash
 source ${THIRDPARTY}/fzf/shell/key-bindings.bash
 source ${THIRDPARTY}/fzf/shell/completion.bash
