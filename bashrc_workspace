@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#set -eou pipefail
 
 SOURCE=${BASH_SOURCE[0]}
 while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -11,8 +10,11 @@ ROOT_DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
 THIRDPARTY=${ROOT_DIR}/thirdparty
 
+EDITOR=emacs
+
 source ${ROOT_DIR}/bash_config.bash
 source ${THIRDPARTY}/fzf/shell/key-bindings.bash
 source ${THIRDPARTY}/fzf/shell/completion.bash
 source ${THIRDPARTY}/fzf-git/fzf-git.sh
 source ${ROOT_DIR}/fzf_config.bash
+source ${ROOT_DIR}/tmux_start.bash

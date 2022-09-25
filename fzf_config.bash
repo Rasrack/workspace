@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-#fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'
+set -euo pipefail
 
 export FZF_CTRL_T_COMMAND='fd --type f --follow --hidden --exclude .git'
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
@@ -28,3 +27,5 @@ _fzf_comprun() {
     *)            fzf "$@" ;;
   esac
 }
+
+set +euo pipefail
