@@ -1,4 +1,56 @@
+[add.interactive]
+    useBuiltin = false # required for git 2.37.0
+[advice]
+	skippedCherryPicks = false
 [alias]
-	st = status
+    sh = show
+    st = status
+    rb = rebase
+    mg = merge
+    mt = mergetool
+    ci = commit --verbose
+    co = checkout
+    br = branch
+    di = diff
+    dt = difftool
+    cp = cherry-pick
+    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lsh = log --graph --branches --remotes --abbrev-commit --pretty=short
+    showAlias = config --get-regexp alias
 [core]
+    autocrlf = false
+    editor = emacs
     excludesfile = ~/.gitignore
+    pager = delta
+[color]
+    ui = true
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    line-numbers = true
+    side-by-side = true
+    line-numbers-left-format = ""
+    line-numbers-right-format = "│ "
+[diff]
+    colorMoved = default
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+[fetch]
+	prune = true
+[grep]
+    linenumber = true
+[interactive]
+    diffFilter = delta --color-only
+[log]
+    decorate = short
+[merge]
+    tool = meld
+    conflictstyle = diff3
+[mergetool]
+    keepBackup = false
+[mergetool "meld"]
+    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+[pull]
+    rebase = true
