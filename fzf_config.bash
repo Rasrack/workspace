@@ -28,4 +28,25 @@ _fzf_comprun() {
   esac
 }
 
+_fzf_git_wstashes() {
+  _fzf_git_check || return
+  git stash list | _fzf_git_fzf \
+    --prompt '🥡 Stashes> ' \
+    --header $'CTRL-X (drop stash)\n\n' \
+    --bind 'ctrl-x:execute-silent(git stash drop {1})+reload(git stash list)' \
+    -d: --preview 'git show --color=always {1}' "$@" |
+  cut -d: -f1
+}
+
+_fzf_git_vreflog() {
+  _fzf_git_check || return
+  git reflog show | _fzf_git_fzf \
+    --prompt '🥢 Reflog> ' \
+    --header $'CTRL-D (diff)\n\n' \
+    -d " " --preview 'git diff --color=always {1}' "$@" |
+  cut -d " " -f1
+}
+
+__fzf_git_init vreflog wstashes
+
 set +euo pipefail
