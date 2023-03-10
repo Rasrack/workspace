@@ -18,7 +18,7 @@
     lsh = log --graph --branches --remotes --abbrev-commit --pretty=short
     showAlias = config --get-regexp alias
     cpush = "!f() { local current_sha=$(git rev-parse HEAD); git checkout \"${1}\" && git cherry-pick \"${current_sha}\" && git push \"${2}\" && git checkout \"${current_sha}\"; };f"
-    last = log -l 1 HEAD
+    last = log -1 HEAD
 [core]
     autocrlf = false
     editor = emacs
