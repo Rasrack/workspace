@@ -17,6 +17,7 @@
     lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lsh = log --graph --branches --remotes --abbrev-commit --pretty=short
     showAlias = config --get-regexp alias
+    cpush = "!f() { local current_sha=$(git rev-parse HEAD); git checkout \"${1}\" && git cherry-pick \"${current_sha}\" && git push \"${2}\" && git checkout \"${current_sha}\"; };f"
 [core]
     autocrlf = false
     editor = emacs
