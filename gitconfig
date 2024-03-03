@@ -51,10 +51,19 @@
     decorate = short
 [merge]
     tool = meld
-    conflictstyle = diff3
+	conflictstyle = zdiff3
 [mergetool]
     keepBackup = false
 [mergetool "meld"]
     cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 [pull]
     rebase = true
+[rebase]
+	autosquash = true
+[branch]
+	sort = -commiterdate
+[diff]
+	algorithm = histogram
+	submodule = log
+[status]
+	submoduleSummary = true

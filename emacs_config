@@ -21,6 +21,9 @@
 (let ((default-directory  "~/.emacs.d"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; Prevent undo tree files from polluting your git repo
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+
 (server-start)
 
 (require 'package)
