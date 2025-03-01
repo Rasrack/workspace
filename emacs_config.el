@@ -2,8 +2,8 @@
 
 ;;; Commentary:
 
-;;(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-;;(load custom-file)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 (defvar workspace-init-directory (file-name-directory load-file-name)
   "Emacs init file directory.")
@@ -11,7 +11,12 @@
 (defvar workspace-session-directory (expand-file-name "emacs.d" workspace-init-directory)
   "Emacs session directory.")
 
-(let ((default-directory  workspace-session-directory))
+(defvar workspace-plugin-directory (expand-file-name "plugins" workspace-init-directory)
+  "Emacs session directory.")
+
+(setq package-user-dir workspace-plugin-directory)
+
+(let ((default-directory  workspace-plugin-directory))
   (normal-top-level-add-subdirs-to-load-path))
 
 ;; Set initial frame to fullscreen when Emacs starts.
@@ -66,6 +71,9 @@
 (use-package go-mode
   :ensure t)
 
+(use-package rust-mode
+  :ensure t)
+
 (use-package clang-format
   :ensure t)
 
@@ -82,7 +90,7 @@
   :init (global-undo-tree-mode))
 
 ;; Prevent undo tree files from polluting your git repo
-(setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/emacs.d/undo")))
+(setq undo-tree-history-directory-alist '(("." . (expand-file-name "undo" workspace-session-directory))))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -160,11 +168,15 @@
 
 ;; LSP
 (use-package lsp-mode
+  :ensure t
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (python-mode . lsp)
+         (c-mode . lsp)
+         (c++-mode . lsp)
+         (rust-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
@@ -186,15 +198,3 @@
 ;; LSP ends here
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

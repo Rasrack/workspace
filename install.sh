@@ -38,11 +38,18 @@ append_line() {
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 THIRDPARTY="${SCRIPT_DIR}/thirdparty"
+
+# Emacs
 EMACS_CONFIG_PATH="${XDG_CONFIG_HOME}/emacs"
+mkdir "${EMACS_CONFIG_PATH}"
+mkdir "$${EMACS_CONFIG_PATH}/plugins"
+mkdir "${EMACS_CONFIG_PATH}/emacs.d"
+touch "${EMACS_CONFIG_PATH}/custom.el"
+ln -s -f "${SCRIPT_DIR}/emacs_config.el" "${EMACS_CONFIG_PATH}/init.el"
+
 
 ln -s -f "${THIRDPARTY}/oh-my-tmux/.tmux.conf" "${HOME}/.tmux.conf"
 ln -s -f "${SCRIPT_DIR}/tmux.config.local" "${HOME}/.tmux.conf.local"
-ln -s -f "${SCRIPT_DIR}/emacs_config.el" "${EMACS_CONFIG_PATH}/init.el"
 ln -s -f "${SCRIPT_DIR}/gitignore" "$HOME/.gitignore"
 git config --global include.path "${SCRIPT_DIR}/gitconfig"
 
